@@ -1,0 +1,355 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>插入排序 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="selection-sort.html" />
+    
+    
+    <link rel="prev" href="chapter1.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    前言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="chapter1.html">
+            
+                <a href="chapter1.html">
+            
+                    
+                    算法基础
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.2.1" data-path="insertion-sort.html">
+            
+                <a href="insertion-sort.html">
+            
+                    
+                    插入排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="selection-sort.html">
+            
+                <a href="selection-sort.html">
+            
+                    
+                    选择排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >插入排序</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x63D2;&#x5165;&#x6392;&#x5E8F;">&#x63D2;&#x5165;&#x6392;&#x5E8F;</h1>
+<h4 id="&#x63D2;&#x5165;&#x6392;&#x5E8F;">&#x63D2;&#x5165;&#x6392;&#x5E8F;</h4>
+<pre><code class="lang-php"><span class="hljs-comment">/**
+ &#x63D2;&#x5165;&#x6392;&#x5E8F;
+ * <span class="hljs-doctag">@param</span> array $arr &#x9700;&#x8981;&#x6392;&#x5E8F;&#x7684;&#x6570;&#x7EC4;
+ * <span class="hljs-doctag">@param</span> integer $sort &#x6392;&#x5E8F;&#x65B9;&#x5F0F; 1:&#x5347;&#x5E8F; 0:&#x964D;&#x5E8F; &#x9ED8;&#x8BA4;&#x5347;&#x5E8F;
+ * <span class="hljs-doctag">@return</span> mixed
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insertion_sort</span><span class="hljs-params">($arr, $sort = <span class="hljs-number">1</span>)</span></span>{
+    <span class="hljs-keyword">for</span>($i = <span class="hljs-number">1</span>;$i &lt; count($arr);++$i){
+        $num = $arr[$i];
+        <span class="hljs-comment">/*&#x628A;&#x5F53;&#x524D;&#x5143;&#x7D20;&#x63D2;&#x5165;&#x5230;&#x5DF2;&#x6392;&#x5E8F;&#x6570;&#x7EC4;&#x4E2D;*/</span>
+        $j = $i - <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">if</span>($sort){
+            <span class="hljs-comment">//&#x5982;&#x679C;&#x524D;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x5927;&#x4E8E;&#x5F53;&#x524D;&#x5143;&#x7D20;&#x5C31;&#x628A;$j+1&#x5BF9;&#x5E94;&#x7684;&#x5143;&#x7D20;&#x53D8;&#x6210;$j&#x5BF9;&#x5E94;&#x7684;&#x5143;&#x7D20;</span>
+            <span class="hljs-keyword">while</span>($j &gt;= <span class="hljs-number">0</span> &amp;&amp; $arr[$j] &gt; $num){
+                $arr[$j + <span class="hljs-number">1</span>] = $arr[$j];
+                --$j;
+            }
+        }<span class="hljs-keyword">else</span>{
+            <span class="hljs-comment">//&#x5982;&#x679C;&#x524D;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x5C0F;&#x4E8E;&#x5F53;&#x524D;&#x5143;&#x7D20;&#x5C31;&#x628A;$j+1&#x5BF9;&#x5E94;&#x7684;&#x5143;&#x7D20;&#x53D8;&#x6210;$j&#x5BF9;&#x5E94;&#x7684;&#x5143;&#x7D20;</span>
+            <span class="hljs-keyword">while</span>($j &gt;= <span class="hljs-number">0</span> &amp;&amp; $arr[$j] &lt; $num){
+                $arr[$j + <span class="hljs-number">1</span>] = $arr[$j];
+                --$j;
+            }
+        }
+        <span class="hljs-comment">//&#x627E;&#x5230;&#x63D2;&#x5165;&#x4F4D;&#x7F6E;&#x8D4B;&#x503C;</span>
+        $arr[$j + <span class="hljs-number">1</span>] = $num;
+    }
+    <span class="hljs-keyword">return</span> $arr;
+}
+
+$arr = [<span class="hljs-number">5</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>];
+print_r(insertion_sort($arr));
+</code></pre>
+<hr>
+<h4 id="2&#x4E2A;n&#x4F4D;&#x4E8C;&#x8FDB;&#x5236;&#x6574;&#x6570;&#x76F8;&#x52A0;">2&#x4E2A;n&#x4F4D;&#x4E8C;&#x8FDB;&#x5236;&#x6574;&#x6570;&#x76F8;&#x52A0;</h4>
+<h6 id="&#x6211;&#x81EA;&#x5DF1;&#x5199;&#x7684;">&#x6211;&#x81EA;&#x5DF1;&#x5199;&#x7684;</h6>
+<pre><code class="lang-php"><span class="hljs-comment">/**
+ * 2&#x4E2A;n&#x4F4D;&#x4E8C;&#x8FDB;&#x5236;&#x6574;&#x6570;&#x76F8;&#x52A0;&#xFF0C;&#x5206;&#x522B;&#x5B58;&#x5728;2&#x4E2A;n&#x5143;&#x6570;&#x7EC4;A&#x8DDF;B&#x4E2D;(&#x4F4E;&#x4F4D;&#x5728;&#x524D;)&#xFF0C;&#x76F8;&#x52A0;&#x7ED3;&#x679C;&#x4E3A;&#x4E00;&#x4E2A;(n+1)&#x5143;&#x6570;&#x7EC4;C
+ * <span class="hljs-doctag">@param</span> array $arrA
+ * <span class="hljs-doctag">@param</span> array $arrB
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">my_add_binary</span><span class="hljs-params">($arrA, $arrB)</span></span>{
+    <span class="hljs-comment">//$flag &#x4E3A;&#x8FDB;&#x4F4D;&#x6807;&#x8BC6;</span>
+    $flag = <span class="hljs-number">0</span>;
+    $arrC = [];
+    <span class="hljs-keyword">for</span>($i = <span class="hljs-number">0</span>;$i &lt; count($arrA);++$i){
+        $sum = $arrA[$i] + $arrB[$i];
+        <span class="hljs-keyword">if</span>($sum &gt; <span class="hljs-number">1</span>){ <span class="hljs-comment">//&#x9700;&#x8981;&#x8FDB;&#x4F4D;</span>
+            $arrC[$i] = $flag?<span class="hljs-number">1</span>:<span class="hljs-number">0</span>; <span class="hljs-comment">//&#x56E0;&#x4E3A;&#x9700;&#x8981;&#x8FDB;&#x4F4D;&#x6240;&#x4EE5;&#x672C;&#x4F4D;&#x4E3A;0&#xFF0C;&#x4F46;&#x662F;&#x5982;&#x679C;&#x4E0A;&#x6B21;&#x8FD0;&#x7B97;&#x540E;&#x6709;&#x8FDB;&#x4F4D; &#x672C;&#x6B21;&#x8FD0;&#x7B97;&#x9700;&#x8981;&#x53D6;&#x53CD;&#x4E3A;1</span>
+            $flag = <span class="hljs-number">1</span>; <span class="hljs-comment">//&#x8FDB;&#x4F4D;</span>
+        }<span class="hljs-keyword">else</span>{ <span class="hljs-comment">//&#x4E0D;&#x9700;&#x8981;&#x8FDB;&#x4F4D;</span>
+            $arrC[$i] = $flag?!$sum:$sum;
+            $flag = <span class="hljs-number">0</span>;
+        }
+    }
+    $arrC[count($arrC)] = $flag;
+    <span class="hljs-keyword">return</span> $arrC;
+}
+$arrA = [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>];
+$arrB = [<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>];
+print_r(my_add_binary($arrA, $arrB));
+</code></pre>
+<hr>
+<h6 id="&#x7F51;&#x4E0A;&#x627E;&#x5230;&#x7684;&#x7B54;&#x6848;">&#x7F51;&#x4E0A;&#x627E;&#x5230;&#x7684;&#x7B54;&#x6848;</h6>
+<pre><code class="lang-php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add_binary</span><span class="hljs-params">($arrA, $arrB)</span></span>{
+    $flag = <span class="hljs-number">0</span>;
+    $arrC = [];
+    <span class="hljs-keyword">for</span>($i = <span class="hljs-number">0</span>;$i &lt; count($arrA);++$i){
+        $arrC[$i] = ($arrA[$i] + $arrB[$i] + $flag) % <span class="hljs-number">2</span>;
+        $flag = intval(($arrA[$i] + $arrB[$i] + $flag) / <span class="hljs-number">2</span>);
+    }
+    $arrC[count($arrC)] = $flag;
+    <span class="hljs-keyword">return</span> $arrC;
+}
+
+$arrA = [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>];
+$arrB = [<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>];
+print_r(add_binary($arrA, $arrB));
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="chapter1.html" class="navigation navigation-prev " aria-label="Previous page: 算法基础">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="selection-sort.html" class="navigation navigation-next " aria-label="Next page: 选择排序">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"插入排序","level":"1.2.1","depth":2,"next":{"title":"选择排序","level":"1.2.2","depth":2,"path":"chapter/01/selection-sort.md","ref":"chapter/01/selection-sort.md","articles":[]},"previous":{"title":"算法基础","level":"1.2","depth":1,"path":"chapter/01/chapter1.md","ref":"chapter/01/chapter1.md","articles":[{"title":"插入排序","level":"1.2.1","depth":2,"path":"chapter/01/insertion-sort.md","ref":"chapter/01/insertion-sort.md","articles":[]},{"title":"选择排序","level":"1.2.2","depth":2,"path":"chapter/01/selection-sort.md","ref":"chapter/01/selection-sort.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter/01/insertion-sort.md","mtime":"2019-12-05T02:33:47.569Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-05T05:01:21.995Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
