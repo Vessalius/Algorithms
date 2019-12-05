@@ -1,7 +1,4 @@
-# 插入排序
-
-#### 插入排序
-```php
+<?php
 /**
  插入排序
  * @param array $arr 需要排序的数组
@@ -34,12 +31,7 @@ function insertion_sort($arr, $sort = 1){
 
 $arr = [5,2,4,6,1,3];
 print_r(insertion_sort($arr));
-```
-***
-#### 2个n位二进制整数相加
 
-###### 我自己写的
-```php
 /**
  * 2个n位二进制整数相加，分别存在2个n元数组A跟B中(低位在前)，相加结果为一个(n+1)元数组C
  * @param array $arrA
@@ -62,14 +54,7 @@ function my_add_binary($arrA, $arrB){
     $arrC[count($arrC)] = $flag;
     return $arrC;
 }
-$arrA = [0,1,0,1];
-$arrB = [1,1,0,0];
-print_r(my_add_binary($arrA, $arrB));
-```
-***
-###### 网上找到的答案
 
-```php
 function add_binary($arrA, $arrB){
     $flag = 0;
     $arrC = [];
@@ -84,4 +69,38 @@ function add_binary($arrA, $arrB){
 $arrA = [0,1,0,1];
 $arrB = [1,1,0,0];
 print_r(add_binary($arrA, $arrB));
-```
+print_r(my_add_binary($arrA, $arrB));
+
+
+/**
+ * 选择排序
+ * @param array $arr
+ * @param array $result
+ * @return array
+ */
+function selection_sort($arr,$result = []){
+    //默认下标0为$arr中的最小元素的下标
+    $min = 0;
+    $temp = [];
+    //每次对比之后更新最小下标
+    for($i = 1;$i < count($arr);++$i){
+        if($arr[$i] < $arr[$min]){
+            $min = $i;
+        }
+    }
+    //最小值加到$result数组的最后
+    $result[] = $arr[$min];
+    //去掉最小值后的新数组
+    for($i = 0;$i < count($arr);++$i){
+        if($i != $min){
+            $temp[] = $arr[$i];
+        }
+    }
+    if(!empty($temp)){
+        $result = selection_sort($temp,$result);
+    }
+    return $result;
+}
+
+$arr = [1,2,6,7,1,2,3,2,1];
+print_r(selection_sort($arr));
