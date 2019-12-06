@@ -9,7 +9,7 @@
  * @param array $arr 原始数组
  * @param int $p，$q，$r 满足$p <= $q < $r
  */
-function merge($arr, $p, $q, $r){
+function merge(&$arr, $p, $q, $r){
     //定义两个子数组（都已知为升序排列）
     $n1 = $q - $p + 1;
     $n2 = $r - $q;
@@ -77,13 +77,24 @@ function merge(&$arr, $p, $q, $r){
     $i = 0;
     $j = 0;
     for($k = $p;$k <= $r;++$k){
-        //考虑有一个子数组取完时的情况
-        if($j == $n2 ||($L[$i] <= $R[$j] && $i < $n1)){
+        if($L[$i] <= $R[$j]){
             $arr[$k] = $L[$i];
-            ++$i;
+            if(++$i == $n2){
+                while($j < $n2){
+                    $arr[++$k] = $R[$j];
+                    ++$j;
+                }
+                break;
+            }
         }else{
             $arr[$k] = $R[$j];
-            ++$j;
+            if(++$j == $n1){
+                while($i < $n1){
+                    $arr[++$k] = $L[$i];
+                    ++$i;
+                }
+                break;
+            }
         }
     }
     return $arr;
