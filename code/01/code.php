@@ -126,20 +126,31 @@ function merge(&$arr, $p, $q, $r){
     $i = 0;
     $j = 0;
     for($k = $p;$k <= $r;++$k){
-        //考虑有一个子数组取完时的情况
-        if($j == $n2 ||($L[$i] <= $R[$j] && $i < $n1)){
+        if($L[$i] <= $R[$j]){
             $arr[$k] = $L[$i];
-            ++$i;
+            if(++$i == $n2){
+                while($j < $n2){
+                    $arr[++$k] = $R[$j];
+                    ++$j;
+                }
+                break;
+            }
         }else{
             $arr[$k] = $R[$j];
-            ++$j;
+            if(++$j == $n1){
+                while($i < $n1){
+                    $arr[++$k] = $L[$i];
+                    ++$i;
+                }
+                break;
+            }
         }
     }
     return $arr;
 }
 
 //$arr = [1,3,4,3,1,3,8,9,2,4,5,7,1,2,3,6,4,3,7,8,4,2];
-//merge($arr, 0, 10, 21);
+//$arr = merge($arr, 8, 11, 15);
 //print_r($arr);
 
 
