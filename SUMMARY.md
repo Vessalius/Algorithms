@@ -5,3 +5,4 @@
     * [插入排序](chapter/01/insertion-sort.md)
     * [选择排序](chapter/01/selection-sort.md)
     * [归并排序](chapter/01/merge-sort.md)
+    * [冒泡排序](chapter/01/bubble-sort.md)

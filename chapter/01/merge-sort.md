@@ -27,7 +27,7 @@ function merge(&$arr, $p, $q, $r){
     for($k = $p;$k <= $r;++$k){
         if($L[$i] <= $R[$j]){
             $arr[$k] = $L[$i];
-            if(++$i == $n2){
+            if(++$i == $n1){
                 while($j < $n2){
                     $arr[++$k] = $R[$j];
                     ++$j;
@@ -36,7 +36,7 @@ function merge(&$arr, $p, $q, $r){
             }
         }else{
             $arr[$k] = $R[$j];
-            if(++$j == $n1){
+            if(++$j == $n2){
                 while($i < $n1){
                     $arr[++$k] = $L[$i];
                     ++$i;
@@ -79,7 +79,7 @@ function merge(&$arr, $p, $q, $r){
     for($k = $p;$k <= $r;++$k){
         if($L[$i] <= $R[$j]){
             $arr[$k] = $L[$i];
-            if(++$i == $n2){
+            if(++$i == $n1){
                 while($j < $n2){
                     $arr[++$k] = $R[$j];
                     ++$j;
@@ -88,7 +88,7 @@ function merge(&$arr, $p, $q, $r){
             }
         }else{
             $arr[$k] = $R[$j];
-            if(++$j == $n1){
+            if(++$j == $n2){
                 while($i < $n1){
                     $arr[++$k] = $L[$i];
                     ++$i;
