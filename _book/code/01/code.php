@@ -128,7 +128,7 @@ function merge(&$arr, $p, $q, $r){
     for($k = $p;$k <= $r;++$k){
         if($L[$i] <= $R[$j]){
             $arr[$k] = $L[$i];
-            if(++$i == $n2){
+            if(++$i == $n1){
                 while($j < $n2){
                     $arr[++$k] = $R[$j];
                     ++$j;
@@ -137,7 +137,7 @@ function merge(&$arr, $p, $q, $r){
             }
         }else{
             $arr[$k] = $R[$j];
-            if(++$j == $n1){
+            if(++$j == $n2){
                 while($i < $n1){
                     $arr[++$k] = $L[$i];
                     ++$i;
@@ -172,3 +172,24 @@ function merge_sort(&$arr, $p, $r){
 $arr = [1,3,4,3,1,3,8,9,2,4,5,7,1,2,3,6,4,3,7,8,4,2];
 merge_sort($arr, 0, 21);
 print_r($arr);
+
+/**
+ * 冒泡排序
+ * @param array $arr 需要排序的原数组
+ * @return mixed
+ */
+function bubble_sort($arr){
+    $length = count($arr);
+    for($i = 0;$i < $length - 1;++$i){
+        for($j = $length - 1;$j > $i;--$j){
+            if($arr[$j] < $arr[$j - 1]){
+                $temp = $arr[$j - 1];
+                $arr[$j - 1] = $arr[$j];
+                $arr[$j] = $temp;
+            }
+        }
+    }
+    return $arr;
+}
+$arr = [9,5,4,8,3,2,1,8,7,6,8,4,5];
+print_r(bubble_sort($arr));

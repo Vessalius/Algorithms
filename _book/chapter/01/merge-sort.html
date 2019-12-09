@@ -57,6 +57,8 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="devide.html" />
+    
     
     <link rel="prev" href="selection-sort.html" />
     
@@ -164,6 +166,38 @@
             
 
             
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="devide.html">
+            
+                <a href="devide.html">
+            
+                    
+                    分治法
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="bubble-sort.html">
+            
+                <a href="bubble-sort.html">
+            
+                    
+                    冒泡排序
+            
+                </a>
+            
+
+            
         </li>
     
 
@@ -243,7 +277,7 @@
     <span class="hljs-keyword">for</span>($k = $p;$k &lt;= $r;++$k){
         <span class="hljs-keyword">if</span>($L[$i] &lt;= $R[$j]){
             $arr[$k] = $L[$i];
-            <span class="hljs-keyword">if</span>(++$i == $n2){
+            <span class="hljs-keyword">if</span>(++$i == $n1){
                 <span class="hljs-keyword">while</span>($j &lt; $n2){
                     $arr[++$k] = $R[$j];
                     ++$j;
@@ -252,7 +286,7 @@
             }
         }<span class="hljs-keyword">else</span>{
             $arr[$k] = $R[$j];
-            <span class="hljs-keyword">if</span>(++$j == $n1){
+            <span class="hljs-keyword">if</span>(++$j == $n2){
                 <span class="hljs-keyword">while</span>($i &lt; $n1){
                     $arr[++$k] = $L[$i];
                     ++$i;
@@ -293,7 +327,7 @@ print_r(merge($arr, <span class="hljs-number">8</span>, <span class="hljs-number
     <span class="hljs-keyword">for</span>($k = $p;$k &lt;= $r;++$k){
         <span class="hljs-keyword">if</span>($L[$i] &lt;= $R[$j]){
             $arr[$k] = $L[$i];
-            <span class="hljs-keyword">if</span>(++$i == $n2){
+            <span class="hljs-keyword">if</span>(++$i == $n1){
                 <span class="hljs-keyword">while</span>($j &lt; $n2){
                     $arr[++$k] = $R[$j];
                     ++$j;
@@ -302,7 +336,7 @@ print_r(merge($arr, <span class="hljs-number">8</span>, <span class="hljs-number
             }
         }<span class="hljs-keyword">else</span>{
             $arr[$k] = $R[$j];
-            <span class="hljs-keyword">if</span>(++$j == $n1){
+            <span class="hljs-keyword">if</span>(++$j == $n2){
                 <span class="hljs-keyword">while</span>($i &lt; $n1){
                     $arr[++$k] = $L[$i];
                     ++$i;
@@ -333,6 +367,77 @@ $arr = [<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<s
 merge_sort($arr, <span class="hljs-number">0</span>, <span class="hljs-number">20</span>);
 print_r($arr);
 </code></pre>
+<hr>
+<h4 id="&#x8BA1;&#x7B97;&#x6570;&#x7EC4;&#x4E2D;&#x7684;&#x9006;&#x5E8F;&#x5BF9;">&#x8BA1;&#x7B97;&#x6570;&#x7EC4;&#x4E2D;&#x7684;&#x9006;&#x5E8F;&#x5BF9;</h4>
+<h6 id="&#x9006;&#x5E8F;&#x5BF9;&#x7684;&#x5B9A;&#x4E49;&#x6570;&#x7EC4;&#x4E2D;&#x82E5;iaj&#x5BF9;&#x5076;ij&#x79F0;&#x4E3A;a&#x7684;&#x4E00;&#x4E2A;&#x9006;&#x5E8F;&#x5BF9;">&#x9006;&#x5E8F;&#x5BF9;&#x7684;&#x5B9A;&#x4E49;:&#x6570;&#x7EC4;&#x4E2D;&#x82E5;i<j且a[i]>A[j],&#x5BF9;&#x5076;(i,j)&#x79F0;&#x4E3A;A&#x7684;&#x4E00;&#x4E2A;&#x9006;&#x5E8F;&#x5BF9;</j且a[i]></h6>
+<pre><code class="lang-php"><span class="hljs-comment">//&#x9006;&#x5E8F;&#x5BF9;&#x6570;&#x91CF;</span>
+$count = <span class="hljs-number">0</span>;
+<span class="hljs-comment">/**
+ * &#x5206;&#x6CBB;&#x6CD5;
+ * <span class="hljs-doctag">@param</span> array $arr &#x539F;&#x59CB;&#x6570;&#x7EC4;
+ * <span class="hljs-doctag">@param</span> int $p&#xFF0C;$q&#xFF0C;$r &#x6EE1;&#x8DB3;$p &lt;= $q &lt; $r
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">merge</span><span class="hljs-params">(&amp;$arr, $p, $q, $r)</span></span>{
+    <span class="hljs-keyword">global</span> $count;
+    <span class="hljs-comment">//&#x5B9A;&#x4E49;&#x4E24;&#x4E2A;&#x5B50;&#x6570;&#x7EC4;&#xFF08;&#x90FD;&#x5DF2;&#x77E5;&#x4E3A;&#x5347;&#x5E8F;&#x6392;&#x5217;&#xFF09;</span>
+    $n1 = $q - $p + <span class="hljs-number">1</span>;
+    $n2 = $r - $q;
+    $L = [];
+    $R = [];
+    <span class="hljs-keyword">for</span>($i = <span class="hljs-number">0</span>;$i &lt; $n1;++$i){
+        $L[$i] = $arr[$p + $i];
+    }
+    <span class="hljs-keyword">for</span>($j = <span class="hljs-number">0</span>;$j &lt; $n2;++$j){
+        $R[$j] = $arr[$q + $j + <span class="hljs-number">1</span>];
+    }
+    <span class="hljs-comment">//&#x6BD4;&#x8F83;&#x4E24;&#x4E2A;&#x5B50;&#x6570;&#x7EC4;&#x4E2D;&#x7B2C;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x7684;&#x8F83;&#x5C0F;&#x503C;&#x653E;&#x5165;&#x539F;&#x6570;&#x7EC4;&#x5BF9;&#x5E94;&#x4F4D;&#x7F6E;&#x4E2D;</span>
+    $i = <span class="hljs-number">0</span>;
+    $j = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span>($k = $p;$k &lt;= $r;++$k){
+        <span class="hljs-keyword">if</span>($L[$i] &lt;= $R[$j]){
+            $arr[$k] = $L[$i];
+            <span class="hljs-keyword">if</span>(++$i == $n1){
+                <span class="hljs-keyword">while</span>($j &lt; $n2){
+                    $arr[++$k] = $R[$j];
+                    ++$j;
+                }
+                <span class="hljs-keyword">break</span>;
+            }
+        }<span class="hljs-keyword">else</span>{
+            $arr[$k] = $R[$j];
+            <span class="hljs-comment">//&#x5728;&#x5F52;&#x5E76;&#x6392;&#x5E8F;&#x57FA;&#x7840;&#x4E0A;&#x52A0;&#x4E0A;&#x8FD9;&#x884C;</span>
+            $count += ($n1 - $i);
+            <span class="hljs-keyword">if</span>(++$j == $n2){
+                <span class="hljs-keyword">while</span>($i &lt; $n1){
+                    $arr[++$k] = $L[$i];
+                    ++$i;
+                }
+                <span class="hljs-keyword">break</span>;
+            }
+        }
+    }
+    <span class="hljs-keyword">return</span> $arr;
+}
+
+<span class="hljs-comment">/**
+ * &#x5229;&#x7528;&#x5206;&#x6CBB;&#x6CD5;&#x8FDB;&#x884C;&#x5F52;&#x5E76;&#x6392;&#x5E8F;
+ * <span class="hljs-doctag">@param</span> array $arr
+ * <span class="hljs-doctag">@param</span> int $p,$r
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">merge_sort</span><span class="hljs-params">(&amp;$arr, $p, $r)</span></span>{
+    <span class="hljs-keyword">if</span>($p &lt; $r){
+    <span class="hljs-comment">//&#x53D6;&#x4E2D;&#x95F4;&#x6570;</span>
+        $q = intval(($p + $r) / <span class="hljs-number">2</span>);
+        merge_sort($arr, $p, $q);
+        merge_sort($arr, $q + <span class="hljs-number">1</span>, $r);
+        merge($arr, $p, $q, $r);
+    }
+}
+
+$arr = [<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">7</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">6</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">4</span>,<span class="hljs-number">2</span>];
+merge_sort($arr, <span class="hljs-number">0</span>, <span class="hljs-number">21</span>);
+<span class="hljs-keyword">echo</span> $count;
+</code></pre>
 
                                 
                                 </section>
@@ -360,10 +465,14 @@ print_r($arr);
 
             
                 
-                <a href="selection-sort.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 选择排序">
+                <a href="selection-sort.html" class="navigation navigation-prev " aria-label="Previous page: 选择排序">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="devide.html" class="navigation navigation-next " aria-label="Next page: 分治法">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -372,7 +481,7 @@ print_r($arr);
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"归并排序","level":"1.3.3","depth":2,"previous":{"title":"选择排序","level":"1.3.2","depth":2,"path":"chapter/01/selection-sort.md","ref":"chapter/01/selection-sort.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter/01/merge-sort.md","mtime":"2019-12-06T03:58:54.108Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-06T03:59:18.443Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"归并排序","level":"1.3.3","depth":2,"next":{"title":"分治法","level":"1.3.3.1","depth":3,"path":"chapter/01/devide.md","ref":"chapter/01/devide.md","articles":[]},"previous":{"title":"选择排序","level":"1.3.2","depth":2,"path":"chapter/01/selection-sort.md","ref":"chapter/01/selection-sort.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter/01/merge-sort.md","mtime":"2019-12-09T05:14:38.142Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-09T10:15:33.539Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
