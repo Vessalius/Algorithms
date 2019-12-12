@@ -1,6 +1,6 @@
-# 分治法
-
-#### 最大子数组问题(分治法)
+# 最大子数组问题
+####提供三种算法
+#### 1.分治法
 ###### 寻找一个数组中的和最大的非空连续子数组
 ###### 思路：分别求得只在左半边的、只在右半边的、跨越中点的，然后比较大小
 
@@ -67,7 +67,7 @@ function find_maximum_subarray($arr, $low, $high){
 $arr = [13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15,-4,7];
 print_r(find_maximum_subarray($arr, 0, 15));
 ```
-#### 最大子数组问题（暴力求解）
+#### 2.暴力求解
 ###### 利用嵌套for循环求所有子数组中最大值
 ```php
 /**
@@ -94,4 +94,36 @@ function force_find_maximum_subarray($arr){
 }
 
 print_r(force_find_maximum_subarray($arr));
+```
+#### 3.线性求解
+```php
+/**
+ * 求数组的最大子数组（线性求解）
+ * @param $arr
+ * @return array
+ */
+function linear_find_maximum_subarray($arr){
+    $max = $arr[0];
+    $low = 0;
+    $high = 0;
+    $temp = $arr[0];
+    $temp_left = 0;
+    for($i = 1;$i < count($arr);++$i){
+        $temp += $arr[$i];
+        if($temp > $max){
+            $max = $temp;
+            $low = $temp_left;
+            $high = $i;
+        }
+        //如果原本temp > 0 加上$arr[$i]后 temp < 0 说明这是子数组的边界， $i + 1开始为新的子数组
+        if($temp < 0){
+            $temp = 0;
+            //先用一个变量记录记录新子数组的最小下标
+            $temp_left = $i + 1;
+        }
+    }
+    return ['low' => $low, 'high' => $high, 'sum' => $max];
+}
+
+print_r(linear_find_maximum_subarray($arr));
 ```
