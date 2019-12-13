@@ -1,11 +1,4 @@
-# 堆排序
-#### 一部分定理
-1、n个元素的堆，叶节点下标为[⌊n/2⌋+1,n]  
-2、n个元素的堆，至多有⌈n/2^(h+1)⌉个高度为h的结点     
-3、最坏情况下，堆排序的时间复杂度为Ω(nlgn)   
-4、所有元素都不同的情况下，堆排序的时间复杂度为Ω(nlgn)
-###### 用到的一些函数
-```php
+<?php
 /**
  * 根据当前节点获取父节点的下标
  * @param $i
@@ -32,21 +25,17 @@ function left($i){
 function right($i){
     return 2 * $i + 2;
 }
-```
-## 维护最大堆性质
-###### 保证所有子节点 ≤ 父节点，提供两种方法
-#### 1、递归方法
-```php
+
 /**
  * 维持最大堆的性质（递归）
  * @param array $arr 堆
  * @param int $i 节点下标
+ * @param int $count 数组长度
  * @return mixed
  */
-function max_heapify_recursive($arr, $i){
+function max_heapify_recursive($arr, $i, $count){
     $l = left($i); //获取左孩子下标
     $r = right($i); //获取右孩子下标
-    $count = count($arr); //获取数组总元素数量
     $largest = $i;
     if($l < $count && $arr[$largest] < $arr[$l]){ //左孩子比当前节点大，记录下标
         $largest = $l;
@@ -60,24 +49,22 @@ function max_heapify_recursive($arr, $i){
         $temp = $arr[$largest];
         $arr[$largest] = $arr[$i];
         $arr[$i] = $temp;
-        $arr = max_heapify_recursive($arr, $largest);
+        $arr = max_heapify_recursive($arr, $largest, $count);
     }
     return $arr;
 }
 
-$arr = [16,4,10,14,7,9,3,2,8,1];
-print_r(max_heapify_recursive($arr, 1));
-```
-#### 2、循环方法
-```php
+//$arr = [16,4,10,14,7,9,3,2,8,1];
+//print_r(max_heapify_recursive($arr, 1, 10));
+
 /**
  * 维持最大堆的性质（循环）
  * @param array $arr 堆
  * @param int $i 节点下标
+ * @param int $count 数组长度
  * @return mixed
  */
-function max_heapify_circle($arr, $i){
-    $count = count($arr); //获取数组总元素数量
+function max_heapify_circle($arr, $i, $count){
     $l = left($i); //获取左孩子下标
     $r = right($i); //获取右孩子下标
     $largest = $i;
@@ -99,13 +86,9 @@ function max_heapify_circle($arr, $i){
     return $arr;
 }
 
-$arr = [16,4,10,14,7,9,3,2,8,1];
-print_r(max_heapify_circle($arr, 1));
-```
-***
-#### 建堆
-###### 自底向上的方式将数组转成最大堆，用到了上面维持最大堆的方法
-```php
+//$arr = [16,4,10,14,7,9,3,2,8,1];
+//print_r(max_heapify_circle($arr, 1, $count));
+
 /**
  * 建堆，自底向上的方式将数组转成最大堆
  * @param $arr
@@ -114,18 +97,14 @@ print_r(max_heapify_circle($arr, 1));
 function build_max_heap($arr){
     $count = count($arr);
     for($i = intval(($count - 1) / 2);$i >= 0;--$i){
-        $arr = max_heapify_recursive($arr, $i);
+        $arr = max_heapify_recursive($arr, $i, $count);
     }
     return $arr;
 }
 
-$arr = [4,1,3,2,16,9,10,14,8,7];
-print_r(build_max_heap($arr));
-```
-***
-#### 堆排序
-###### 用到了上面维持最大堆性质的方法
-```php
+//$arr = [4,1,3,2,16,9,10,14,8,7];
+//print_r(build_max_heap($arr));
+
 /**
  * 堆排序
  * @param $arr
@@ -146,7 +125,63 @@ function heap_sort($arr){
     return $arr;
 }
 
-$arr = [4,1,3,2,16,9,10,14,8,7];
-print_r(heap_sort($arr));
-```
+//$arr = [4,1,3,2,16,9,10,14,8,7];
+//print_r(heap_sort($arr));
 
+
+/**
+ * 返回最大堆中最大键值的元素
+ * @param array $arr 最大堆
+ * @return mixed
+ */
+function heap_maximum(&$arr){
+    return $arr[0];
+}
+
+/**
+ * 去掉并返回最大堆中具有最大键值的元素
+ * @param array $arr 最大堆
+ * @return mixed
+ */
+function heap_extract_max(&$arr){
+    $max = $arr[0];
+    $arr[0] = $arr[count($arr) - 1];
+    unset($arr[count($arr) - 1]);
+    $arr = max_heapify_recursive($arr, 0, count($arr));
+    return $max;
+}
+//$arr = [16,14,10,8,7,9,3,2,4,1];
+//print_r(heap_extract_max($arr));
+//print_r($arr);
+
+/**
+ * 将元素$i的值增加到$key, 且$arr[$i] <= $key
+ * @param array $arr 最大堆
+ * @param int $i 数组下标
+ * @param int $key 替换的值
+ * @return mixed
+ */
+function heap_increase_key($arr, $i, $key){
+    $arr[$i] = $key;
+    while($i > 0 && $arr[parent($i)] < $arr[$i]){
+        $temp = $arr[parent($i)];
+        $arr[parent($i)] = $arr[$i];
+        $arr[$i] = $temp;
+        $i = parent($i);
+    }
+    return $arr;
+}
+//$arr = [16,14,10,8,7,9,3,2,4,1];
+//print_r(heap_increase_key($arr, 3, 20));
+
+/**
+ * 插入$key到$arr中，并保持最大堆性质
+ * @param array $arr 最大堆
+ * @param int $key 插入的值
+ * @return mixed
+ */
+function max_heap_insert($arr, $key){
+    return heap_increase_key($arr, count($arr), $key);
+}
+//$arr = [16,14,10,8,7,9,3,2,4,1];
+//print_r(max_heap_insert($arr, 20));

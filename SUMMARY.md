@@ -11,3 +11,4 @@
             * [三次乘法完成复数相乘](chapter/01/devide/complex_multiply.md)
     * [冒泡排序](chapter/01/bubble-sort.md)
     * [堆排序](chapter/01/heap-sort.md)
+        * [优先队列](chapter/01/heap/priority-queue.md)

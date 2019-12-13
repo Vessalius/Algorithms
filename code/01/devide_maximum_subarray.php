@@ -86,3 +86,34 @@ function force_find_maximum_subarray($arr){
 }
 
 print_r(force_find_maximum_subarray($arr));
+
+
+/**
+ * 求数组的最大子数组（线性求解）
+ * @param $arr
+ * @return array
+ */
+function linear_find_maximum_subarray($arr){
+    $max = $arr[0];
+    $low = 0;
+    $high = 0;
+    $temp = $arr[0];
+    $temp_left = 0;
+    for($i = 1;$i < count($arr);++$i){
+        $temp += $arr[$i];
+        if($temp > $max){
+            $max = $temp;
+            $low = $temp_left;
+            $high = $i;
+        }
+        //如果原本temp > 0 加上$arr[$i]后 temp < 0 说明这是子数组的边界， $i + 1开始为新的子数组
+        if($temp < 0){
+            $temp = 0;
+            //先用一个变量记录记录新子数组的最小下标
+            $temp_left = $i + 1;
+        }
+    }
+    return ['low' => $low, 'high' => $high, 'sum' => $max];
+}
+
+print_r(linear_find_maximum_subarray($arr));
